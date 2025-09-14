@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: email_validator_api
+    volumes:
+      - ./:/app
+    working_dir: /app
+    entrypoint: ["/app/docker/validator_entrypoint.sh"]
+    ports:
+      - "8000:8000"
+    environment:
+      - LOGLEVEL=DEBUG
+      - CACHE_HOST=email_validator_memcached
+    depends_on:
+      - memcached
+
+  memcached:
+    image: memcached:latest
+    container_name: email_validator_memcached
+    restart: always
+    ports:
+      - "11211:11211"
+    command: ["-m", "64", "-c", "1024", "-v"]
