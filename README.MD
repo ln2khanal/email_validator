@@ -108,7 +108,7 @@ Note: To support large number of email addresses, batch processing can be of gre
 
 - `docker/` — Dockerfile and entrypoint script
 - `validator/` — Django app with API, utils, and validators
-- `email_validator_local/` — Django project settings and config
+- `email_validator_api/` — Django project settings and config
 
 ---
 

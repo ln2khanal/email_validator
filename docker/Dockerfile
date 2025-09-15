@@ -1,5 +1,5 @@
 
-FROM python:3.11-slim
+FROM python:3.13.7-slim
 
 # ENVs
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -18,7 +18,7 @@ RUN pip install -r /app/requirements.txt
 
 COPY . /app
 
-ENV DJANGO_SETTINGS_MODULE=email_validator_local.settings
+ENV DJANGO_SETTINGS_MODULE=email_validator_api.settings
 ENV PORT=8000
 
 COPY docker/validator_entrypoint.sh /app/docker/validator_entrypoint.sh

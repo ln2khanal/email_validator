@@ -7,7 +7,7 @@ import asyncio
 import aiosmtplib
 from .cache import cached
 
-from email_validator_local.logger import logger
+from email_validator_api.logger import logger
 
 resolver = dns.resolver.Resolver()
 
