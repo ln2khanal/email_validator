@@ -1,7 +1,7 @@
-from django.urls import path
-from . import views 
+from rest_framework.routers import DefaultRouter
+from .apis import ValidateEmailsCheckedListAPI
 
-urlpatterns = [
-    path('validate-emails/', views.ValidateEmailsView.as_view(), name='validate-emails'),
-]
+router = DefaultRouter()
+router.register(r'emails', ValidateEmailsCheckedListAPI, basename='emails-checked-list')
 
+urlpatterns = router.urls
