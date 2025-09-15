@@ -35,7 +35,7 @@ Note: To support large number of email addresses, batch processing can be of gre
 
 ### Endpoint
 
-`POST /api/validate-emails/`
+`POST /api/emails/`
 
 #### Request Body
 
@@ -51,23 +51,66 @@ Note: To support large number of email addresses, batch processing can be of gre
 #### Response Example
 
 ```json
-[
-  {
-    "email": "test@example.com",
-    "valid_format": true,
-    "dns_mx": true,
-    "spf": "...",
-    "dkim": {
-      "selector": "default",
-      "record": "..."
-    },
-    "dmarc": "...",
-    "smtp_reachable": true,
-    "smtp_info": "250 OK",
-    "status": "deliverable"
+{
+    "created_count": 2,
+    "input_count": 2
+}
+```
+`GET /api/emails/`
+
+#### Response Example
+```
+{
+    "count": 3,
+    "next": null,
+    "previous": null,
+    "results": [
+        {
+            "id": 1,
+            "email": "abc@def.com",
+            "status": "pending",
+            "created_at": "2025-09-15T10:51:50.744554Z",
+            "updated_at": "2025-09-15T10:51:50.744646Z"
+        },
+        {
+            "id": 2,
+            "email": "xyz@hotmail.com",
+            "status": "pending",
+            "created_at": "2025-09-15T10:51:50.744657Z",
+            "updated_at": "2025-09-15T10:51:50.744662Z"
+        },
+        {
+            "id": 4,
+            "email": "abcdef@gmail.com",
+            "status": "pending",
+            "created_at": "2025-09-15T10:51:50.744684Z",
+            "updated_at": "2025-09-15T10:51:50.744693Z"
+        }
+    ],
+    "total": 3,
+    "checked": 0,
+    "pending": 3
+}
+```
+`GET /api/emails/id=1`
+
+#### Response Example
+```
+{
+  "id": 1,
+  "email": "abc@def.com",
+  "valid_format": true,
+  "dns_mx": true,
+  "spf": "...",
+  "dkim": {
+    "selector": "default",
+    "record": "..."
   },
-  ...
-]
+  "dmarc": "...",
+  "smtp_reachable": true,
+  "smtp_info": "250 OK",
+  "status": "deliverable"
+}
 ```
 
 ---
@@ -101,7 +144,6 @@ Note: To support large number of email addresses, batch processing can be of gre
 - **Environment Variables:**
   - `FROM_EMAIL_ADDRESS`: The email address used as the sender for SMTP checks (default: `info@org.local`)
   - `CACHE_HOST`: Hostname for memcached (default: `email_validator_memcached` in Docker)
-
 ---
 
 ## File Structure
